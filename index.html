@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dona Hotel — Консьерж</title>
-  <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js"></script>
+  <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.6/libs/oversea/index.js"></script>
   <style>
     body { background: #1b263b; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
     .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -24,8 +24,14 @@
     window.onload = function() {
       new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
-        auth: { type: 'unauth' },
-        ui: { asstBtn: { isNeed: true } }
+        componentProps: { title: 'Dona Hotel Консьерж' },
+        auth: { 
+          type: 'token', 
+          token: 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi',
+          onRefreshToken: function () {
+            return 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi'
+          }
+        }
       });
     };
   </script>
