@@ -3,45 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dona Hotel — Консьерж-сервис</title>
+  <title>Dona Hotel — Консьерж</title>
   <script src="https://lf-cdn.coze.com/obj/unpkg/flow-platform/chat-core/0.1.0-beta.10/libs/oversea/index.js"></script>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    .coze-web-chat-asst-btn {
-      background-color: #1e3a5f !important;
-    }
+    body { background: #1b263b; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    h1 { margin: 0 0 10px; font-size: 26px; }
+    p { color: #e0e1dd; font-size: 16px; line-height: 1.5; }
   </style>
 </head>
 <body>
+  <div class="card">
+    <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
+    <h1>Dona Hotel</h1>
+    <p>Добро пожаловать!<br>Я — ваш виртуальный консьерж.</p>
+    <p style="color: #778da9; font-size: 13px; margin-top: 25px;">👇 Нажмите на синюю кнопку в углу, чтобы начать чат</p>
+  </div>
+
   <script>
     new CozeWebSDK.WebChatClient({
-      config: {
-        type: 'bot',
-        bot_id: '7695137104795795461',
-        isIframe: false,
+      config: { bot_id: '7695137104795795461' },
+      auth: { 
+        type: 'token', 
+        token: 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi', 
+        onRefreshToken: async () => 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi' 
       },
-      auth: {
-        type: 'token',
-        token: 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi',
-        onRefreshToken: async () => 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi',
-      },
-      ui: {
-        header: {
-          isShow: true,
-          isNeedClose: true,
-        },
-        asstBtn: {
-          isNeed: true,
-        },
-      },
+      ui: { asstBtn: { isNeed: true } }
     });
   </script>
 </body>
 </html>
-
