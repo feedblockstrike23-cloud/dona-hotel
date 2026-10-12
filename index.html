@@ -24,11 +24,7 @@
     window.onload = function() {
       new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
-        auth: { 
-          type: 'token', 
-          token: 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi', 
-          onRefreshToken: async () => 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi' 
-        },
+        auth: { type: 'unauth' },
         ui: { asstBtn: { isNeed: true } }
       });
     };
