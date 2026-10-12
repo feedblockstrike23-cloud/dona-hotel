@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dona Hotel — Консьерж-сервис</title>
+  <script src="https://lf-cdn.coze.com/obj/unpkg/flow-platform/chat-core/0.1.0-beta.10/libs/oversea/index.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .coze-web-chat-asst-btn {
+      background-color: #1e3a5f !important;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    new CozeWebSDK.WebChatClient({
+      config: {
+        type: 'bot',
+        bot_id: '7695137104795795461',
+        isIframe: false,
+      },
+      auth: {
+        type: 'token',
+        token: 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi',
+        onRefreshToken: async () => 'pat_oCJeaxM9H09dQVqcCwBKb2lgDl3xUxQubsAWQkwrCjVv4hOZFbWbuEvOHTkzopSi',
+      },
+      ui: {
+        header: {
+          isShow: true,
+          isNeedClose: true,
+        },
+        asstBtn: {
+          isNeed: true,
+        },
+      },
+    });
+  </script>
+</body>
+</html>
+
