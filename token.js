@@ -1,0 +1,1 @@
+window.COZE_TOKEN = 'pat_dWwpgLnPr1HWPsh8cMTOlKlIxEfab180e4kl2ZAQMZ1hDsrsMWGjg11kdk8VH8B4';
