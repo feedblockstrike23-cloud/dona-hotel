@@ -6,22 +6,18 @@
   <title>Dona Hotel — Concierge</title>
   <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/oversea/index.js"></script>
   <style>
-    /* Убрали flex из body, чтобы не ломать кнопку Coze */
     body { 
       background: #1b263b; 
       color: #fff; 
       font-family: -apple-system, sans-serif; 
       margin: 0; 
     }
-    
-    /* Создали отдельную обертку для центрирования карточки */
     .wrapper {
       display: flex; 
       justify-content: center; 
       align-items: center; 
       height: 100vh;
     }
-
     .card { 
       background: #0d1b2a; 
       padding: 40px 20px; 
@@ -31,21 +27,24 @@
       width: 90%; 
       max-width: 400px; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+      cursor: pointer; /* Делаем карточку кликабельной */
+      transition: transform 0.2s; /* Анимация при нажатии */
     }
-    
+    .card:active {
+      transform: scale(0.97);
+    }
     h1 { margin: 0 0 10px; font-size: 26px; }
     p { color: #e0e1dd; font-size: 16px; line-height: 1.5; }
   </style>
 </head>
 <body>
-
-  <!-- Вся наша красота теперь живет внутри wrapper -->
   <div class="wrapper">
-    <div class="card">
+    <!-- Вся карточка теперь работает как кнопка для резервного открытия -->
+    <div class="card" id="startCard">
       <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
       <h1>Dona Hotel</h1>
       <p>Welcome!<br>I am your virtual concierge.</p>
-      <p style="color: #778da9; font-size: 13px; margin-top: 25px;">👉 Click the blue button in the bottom right corner</p>
+      <p style="color: #778da9; font-size: 13px; margin-top: 25px;">⏳ Opening chat...<br>(Tap anywhere if it doesn't open)</p>
     </div>
   </div>
 
@@ -55,7 +54,7 @@
       const part2 = 'wXFJqJBipBq1uaAOm6SgaXnOEdhxKXWDNSzxz8p3Gsa';
       const realToken = part1 + part2;
 
-      new CozeWebSDK.WebChatClient({
+      const client = new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
         componentProps: { title: 'Dona Hotel Concierge' },
         auth: { 
@@ -64,6 +63,29 @@
           onRefreshToken: function () { return realToken; }
         }
       });
+
+      // Функция для принудительного открытия чата
+      function forceOpenChat() {
+        // 1. Пробуем дернуть официальные методы Coze SDK
+        if (typeof client.showChatBot === 'function') client.showChatBot();
+        if (typeof client.open === 'function') client.open();
+        if (typeof client.show === 'function') client.show();
+        
+        // 2. Хак: пробиваем Shadow DOM, находим скрытую кнопку Coze и кликаем по ней
+        try {
+          const cozeContainer = document.querySelector('div[id^="coze"]');
+          if (cozeContainer && cozeContainer.shadowRoot) {
+             const btn = cozeContainer.shadowRoot.querySelector('button');
+             if (btn) btn.click();
+          }
+        } catch(e) {}
+      }
+
+      // АВТО-ОТКРЫТИЕ через 2 секунды после загрузки
+      setTimeout(forceOpenChat, 2000);
+
+      // РЕЗЕРВ для Telegram: тап по карточке
+      document.getElementById('startCard').addEventListener('click', forceOpenChat);
     };
   </script>
 </body>
