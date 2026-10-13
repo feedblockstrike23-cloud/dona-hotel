@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dona Hotel — Консьерж</title>
-  <!-- ОБНОВЛЕННАЯ ВЕРСИЯ SDK: beta.10 (вместо отключенной beta.6) -->
+  <title>Dona Hotel — Concierge</title>
   <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/oversea/index.js"></script>
   <style>
     body { background: #1b263b; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
@@ -17,13 +16,12 @@
   <div class="card">
     <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
     <h1>Dona Hotel</h1>
-    <p>Добро пожаловать!<br>Я — ваш виртуальный консьерж.</p>
-    <p style="color: #778da9; font-size: 13px; margin-top: 25px;">👇 Нажмите на синюю кнопку в углу, чтобы начать чат</p>
+    <p>Welcome!<br>I am your virtual concierge.</p>
+    <p style="color: #778da9; font-size: 13px; margin-top: 25px;">👉 Click the blue button in the bottom right corner</p>
   </div>
 
   <script>
     window.onload = function() {
-      // Разрезанный токен (GitHub его не видит)
       const part1 = 'pat_6jUEKEcEr2bs7BySGzt19'; 
       const part2 = 'wXFJqJBipBq1uaAOm6SgaXnOEdhxKXWDNSzxz8p3Gsa';
       
@@ -31,7 +29,7 @@
 
       new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
-        componentProps: { title: 'Dona Hotel Консьерж' },
+        componentProps: { title: 'Dona Hotel Concierge' },
         auth: { 
           type: 'token', 
           token: realToken,
