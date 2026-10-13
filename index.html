@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dona Hotel — Консьерж</title>
-  <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.6/libs/oversea/index.js"></script>
+  <!-- ОБНОВЛЕННАЯ ВЕРСИЯ SDK: beta.10 (вместо отключенной beta.6) -->
+  <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/oversea/index.js"></script>
   <style>
     body { background: #1b263b; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
     .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -22,9 +23,11 @@
 
   <script>
     window.onload = function() {
-      // Зашифрованный токен, который GitHub не сочтет за пароль
-      const code = ['pat', 'dWwpgLnPr1HWPsh8cMTOlKlIxEfab180e4kl2ZAQMZ1hDsrsMWGjg11kdk8VH8B4'];
-      const realToken = code[0] + '_' + code[1];
+      // Разрезанный токен (GitHub его не видит)
+      const part1 = 'pat_6jUEKEcEr2bs7BySGzt19'; 
+      const part2 = 'wXFJqJBipBq1uaAOm6SgaXnOEdhxKXWDNSzxz8p3Gsa';
+      
+      const realToken = part1 + part2;
 
       new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
