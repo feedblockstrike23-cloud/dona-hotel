@@ -7,35 +7,33 @@
   <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/oversea/index.js"></script>
   <style>
     body { background: #1b263b; color: #fff; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { margin: 0 0 10px; font-size: 26px; }
-    p { color: #e0e1dd; font-size: 16px; line-height: 1.5; }
-    .chat-btn {
-      display: inline-block;
-      background: #3b82f6;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
-      margin-top: 20px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    
+    /* Контейнер для чата по центру экрана */
+    #coze-chat-container {
+      width: 420px;
+      height: 600px;
+      background: #0d1b2a;
+      border-radius: 20px;
+      border: 1px solid #415a77;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
     }
-    .chat-btn:active {
-      transform: scale(0.98);
+
+    /* Адаптив для телефонов */
+    @media (max-width: 480px) {
+      #coze-chat-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
-    <h1>Dona Hotel</h1>
-    <p>Welcome!<br>I am your virtual concierge.</p>
-    <button class="chat-btn" id="openChatBtn">💬 Open Chat</button>
-  </div>
+
+  <!-- Блок, куда Coze сам встроит полноценный чат -->
+  <div id="coze-chat-container"></div>
 
   <script>
     window.onload = function() {
@@ -43,29 +41,23 @@
       const part2 = 'wXFJqJBipBq1uaAOm6SgaXnOEdhxKXWDNSzxz8p3Gsa';
       const realToken = part1 + part2;
 
+      // Инициализируем чат во встроенном режиме (Embedded) внутри нашего контейнера
       new CozeWebSDK.WebChatClient({
-        config: { bot_id: '7695137104795795461' },
-        componentProps: { title: 'Dona Hotel Concierge' },
+        config: { 
+          bot_id: '7695137104795795461' 
+        },
+        // Указываем элемент на странице, куда вставить чат
+        el: document.getElementById('coze-chat-container'),
+        componentProps: { 
+          title: 'Dona Hotel Concierge',
+          // Включаем полноразмерный режим для блока
+          layout: 'pc'
+        },
         auth: { 
           type: 'token', 
           token: realToken,
           onRefreshToken: function () { return realToken; }
         }
-      });
-
-      // Надежный перехват: ищем плавающий элемент чата Coze и кликаем по нему
-      document.getElementById('openChatBtn').addEventListener('click', function() {
-        // Coze добавляет элементы на страницу, попробуем найти кнопку или iframe контейнер
-        const cozeElements = document.querySelectorAll('[id^="coze"], [class*="coze"], iframe');
-        
-        // Альтернативный способ: ищем любой элемент в правом нижнем углу или кликаем по всем кнопкам с иконками
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(btn => {
-          // Ищем круглую плавающую кнопку в углу
-          if (btn.getBoundingClientRect().right > window.innerWidth - 100 && btn.getBoundingClientRect().bottom > window.innerHeight - 100) {
-            btn.click();
-          }
-        });
       });
     };
   </script>
