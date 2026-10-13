@@ -10,6 +10,23 @@
     .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     h1 { margin: 0 0 10px; font-size: 26px; }
     p { color: #e0e1dd; font-size: 16px; line-height: 1.5; }
+    /* Стиль для кликабельной кнопки */
+    .chat-btn {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 20px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .chat-btn:hover {
+      background: #2563eb;
+    }
   </style>
 </head>
 <body>
@@ -17,7 +34,8 @@
     <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
     <h1>Dona Hotel</h1>
     <p>Welcome!<br>I am your virtual concierge.</p>
-    <p style="color: #778da9; font-size: 13px; margin-top: 25px;">👉 Click the blue button in the bottom right corner</p>
+    <!-- Кликабельная кнопка открытия чата -->
+    <a class="chat-btn" id="openChatBtn">💬 Open Chat</a>
   </div>
 
   <script>
@@ -27,13 +45,21 @@
       
       const realToken = part1 + part2;
 
-      new CozeWebSDK.WebChatClient({
+      // Инициализируем виджет и сохраняем его в переменную client
+      const client = new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
         componentProps: { title: 'Dona Hotel Concierge' },
         auth: { 
           type: 'token', 
           token: realToken,
           onRefreshToken: function () { return realToken; }
+        }
+      });
+
+      // Привязываем клик по нашей кнопке к открытию чата
+      document.getElementById('openChatBtn').addEventListener('click', function() {
+        if (client && client.open) {
+          client.open();
         }
       });
     };
