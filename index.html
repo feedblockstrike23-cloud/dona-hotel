@@ -10,22 +10,22 @@
     .card { background: #0d1b2a; padding: 40px 20px; border-radius: 20px; text-align: center; border: 1px solid #415a77; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     h1 { margin: 0 0 10px; font-size: 26px; }
     p { color: #e0e1dd; font-size: 16px; line-height: 1.5; }
-    /* Стиль для кликабельной кнопки */
     .chat-btn {
       display: inline-block;
       background: #3b82f6;
       color: #fff;
-      padding: 10px 20px;
-      border-radius: 10px;
+      padding: 12px 24px;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 15px;
       margin-top: 20px;
-      transition: background 0.2s;
+      border: none;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
-    .chat-btn:hover {
-      background: #2563eb;
+    .chat-btn:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
@@ -34,19 +34,16 @@
     <div style="font-size: 45px; margin-bottom: 15px;">🛎️</div>
     <h1>Dona Hotel</h1>
     <p>Welcome!<br>I am your virtual concierge.</p>
-    <!-- Кликабельная кнопка открытия чата -->
-    <a class="chat-btn" id="openChatBtn">💬 Open Chat</a>
+    <button class="chat-btn" id="openChatBtn">💬 Open Chat</button>
   </div>
 
   <script>
     window.onload = function() {
       const part1 = 'pat_6jUEKEcEr2bs7BySGzt19'; 
       const part2 = 'wXFJqJBipBq1uaAOm6SgaXnOEdhxKXWDNSzxz8p3Gsa';
-      
       const realToken = part1 + part2;
 
-      // Инициализируем виджет и сохраняем его в переменную client
-      const client = new CozeWebSDK.WebChatClient({
+      new CozeWebSDK.WebChatClient({
         config: { bot_id: '7695137104795795461' },
         componentProps: { title: 'Dona Hotel Concierge' },
         auth: { 
@@ -56,11 +53,19 @@
         }
       });
 
-      // Привязываем клик по нашей кнопке к открытию чата
+      // Надежный перехват: ищем плавающий элемент чата Coze и кликаем по нему
       document.getElementById('openChatBtn').addEventListener('click', function() {
-        if (client && client.open) {
-          client.open();
-        }
+        // Coze добавляет элементы на страницу, попробуем найти кнопку или iframe контейнер
+        const cozeElements = document.querySelectorAll('[id^="coze"], [class*="coze"], iframe');
+        
+        // Альтернативный способ: ищем любой элемент в правом нижнем углу или кликаем по всем кнопкам с иконками
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+          // Ищем круглую плавающую кнопку в углу
+          if (btn.getBoundingClientRect().right > window.innerWidth - 100 && btn.getBoundingClientRect().bottom > window.innerHeight - 100) {
+            btn.click();
+          }
+        });
       });
     };
   </script>
